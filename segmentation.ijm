@@ -85,6 +85,51 @@ for (j=0; j<H; j++) {
 for (k=0; k<K; k++) {
   print(k, ". R=", R_centres[k], ", G=", G_centres[k],", B=", B_centres[k]);
 }
+
+//ask to open a new image
+Dialog.create("Segmentation automatique");
+Dialog.addMessage("Veuillez choisir une nouvelle image à segmenter automatiquement.");
+Dialog.show();
+
+run("Open...");
+new_image = getImageID();
+selectImage (new_image);
+
+//for each pixel
+for (j=0; j<H; j++) {
+  for (i=0; i<W; i++) {
+
+    //fetch color from the pixel of the new image
+    color = getPixel(i,j);
+    R = (color & 0xff0000) >> 16;
+    G = (color & 0x00ff00) >> 8;
+    B = (color & 0x0000ff) ;
+
+    //compute the distance between current pixel and centroide k = 0 to set it as current min
+    k_min_dist = 0;
+    min_dist = pow(R - R_centres[0], 2) + pow(G - G_centres[0], 2) + pow(B - B_centres[0], 2);
+
+    //for each k (k > 1)
+    for (k=1; k<K; k++) {
+      //compute the distance between current pixel and centroide k
+      dist = pow(R - R_centres[k], 2) + pow(G - G_centres[k], 2) + pow(B - B_centres[k], 2);
+
+      //if the dist is lower than the min_dist, it becomes the min_dist
+      if (dist < min_dist) {
+        k_min_dist = k;
+        min_dist = dist;
+      }
+    }
+
+    //we concatenate the centroide's R,G,B in order to create the future pixel color
+    k_color = ((R_centres[k_min_dist] & 0xff ) << 16) + ((G_centres[k_min_dist] & 0xff) << 8) + B_centres[k_min_dist] & 0xff;
+
+    //set the pixel of the new image to the centroide color
+    setPixel(i,j,k_color);
+
+  }
+}
+
 //setBatchMode(false);
 
 Dialog.create("Fin");
