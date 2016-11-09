@@ -36,7 +36,6 @@ selectImage (image);
 //for each pixel
 for (j=0; j<H; j++) {
   for (i=0; i<W; i++) {
-
     //fetch the colors of the current pixel
     color = getPixel(i,j);
     R = (color & 0xff0000) >> 16;
@@ -59,6 +58,8 @@ for (j=0; j<H; j++) {
         && B_centres[k] == B) {
           centre_exists = true;
       }
+
+      k++;
     }
 
     //out of the k loop, if k == K, we have all our colors so we step out of the i loop
