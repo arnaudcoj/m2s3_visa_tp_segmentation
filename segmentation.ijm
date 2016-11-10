@@ -7,6 +7,7 @@ macro "segmentation" {
 
 // recuperation du ID de l'image
 image = getImageID();
+selectImage (image);
 
 value = getNumber ("quel nombre de classes", value);
 
@@ -16,6 +17,8 @@ Dialog.show();
 
 
 //setBatchMode(true);
+
+run("k-means Clustering ...", "number_of_clusters=" + value + " cluster_center_tolerance=0.00010000 enable_randomization_seed randomization_seed=48 show_clusters_as_centroid_value");
 
 // recuperation de la taille W x H de l'image
 W = getWidth();
@@ -31,7 +34,7 @@ Array.fill(B_centres, -1);
 
 //run("Duplicate...", "title=image_dup");
 //image_dup = getImageID();
-selectImage (image);
+selectImage ("Cluster centroid values");
 
 //for each pixel
 for (j=0; j<H; j++) {
