@@ -1,7 +1,7 @@
-// Une macro-squelette pour la color.
+// Une macro pour segmenter des images à partir d'une image déjà segmentée
 // Version: 0.1
-// Date: 14/09/2011
-// Author: L. Macaire
+// Date: 16/11/2016
+// Author: L. Macaire & Arnaud Cojez
 
 macro "segmentation" {
 
@@ -18,7 +18,10 @@ Dialog.show();
 
 //setBatchMode(true);
 
-run("k-means Clustering ...", "number_of_clusters=" + value + " cluster_center_tolerance=0.00010000 enable_randomization_seed randomization_seed=48 show_clusters_as_centroid_value");
+//imagej
+//run("k-means Clustering...", "number_of_clusters=" + value + " cluster_center_tolerance=0.00010000 enable_randomization_seed randomization_seed=48 show_clusters_as_centroid_value");
+//fiji
+run("k-means Clustering", "number=" + value + " cluster=0.00010000 show");
 
 // recuperation de la taille W x H de l'image
 W = getWidth();
@@ -132,7 +135,6 @@ for (j=0; j<H; j++) {
 
   }
 }
-
 //setBatchMode(false);
 
 Dialog.create("Fin");
