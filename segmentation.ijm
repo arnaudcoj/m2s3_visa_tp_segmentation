@@ -1,29 +1,25 @@
-// Une macro pour segmenter des images à partir d'une image déjà segmentée
+// Une macro pour segmenter des images a partir d'une image déja segmentée
 // Version: 0.1
 // Date: 16/11/2016
 // Author: L. Macaire & Arnaud Cojez
 
 macro "segmentation" {
 
-// recuperation du ID de l'image
+// fetch the image's ID
 image = getImageID();
 selectImage (image);
 
-value = getNumber ("quel nombre de classes", value);
+value = getNumber ("Quel nombre de classes ?", value);
 
 Dialog.create("Debut");
 Dialog.addMessage(" Cliquer sur OK pour commencer le traitement ");
 Dialog.show();
 
 
-//setBatchMode(true);
+//Run the ImageJ plugin K-means
+run("k-means Clustering ...", "number_of_clusters=" + value + " cluster_center_tolerance=0.00010000 enable_randomization_seed randomization_seed=48 show_clusters_as_centroid_value");
 
-//imagej
-//run("k-means Clustering...", "number_of_clusters=" + value + " cluster_center_tolerance=0.00010000 enable_randomization_seed randomization_seed=48 show_clusters_as_centroid_value");
-//fiji
-run("k-means Clustering", "number=" + value + " cluster=0.00010000 show");
-
-// recuperation de la taille W x H de l'image
+// fetch the image's W x H size
 W = getWidth();
 H = getHeight();
 K = value;
@@ -35,10 +31,9 @@ Array.fill(G_centres, -1);
 B_centres = newArray(K);
 Array.fill(B_centres, -1);
 
-//run("Duplicate...", "title=image_dup");
-//image_dup = getImageID();
 selectImage ("Cluster centroid values");
 
+//Find the classes in the image
 //for each pixel
 for (j=0; j<H; j++) {
   for (i=0; i<W; i++) {
@@ -94,13 +89,14 @@ for (k=0; k<K; k++) {
 
 //ask to open a new image
 Dialog.create("Segmentation automatique");
-Dialog.addMessage("Veuillez choisir une nouvelle image à segmenter automatiquement.");
+Dialog.addMessage("Veuillez choisir une nouvelle image a segmenter automatiquement.");
 Dialog.show();
 
 run("Open...");
 new_image = getImageID();
 selectImage (new_image);
 
+//Segments the new image
 //for each pixel
 for (j=0; j<H; j++) {
   for (i=0; i<W; i++) {
@@ -135,10 +131,10 @@ for (j=0; j<H; j++) {
 
   }
 }
-//setBatchMode(false);
 
+//End of the macro
 Dialog.create("Fin");
-Dialog.addMessage(" Cliquer sur OK pour terminer le traitement");
+Dialog.addMessage("Traitement terminé.");
 Dialog.show();
 
 
