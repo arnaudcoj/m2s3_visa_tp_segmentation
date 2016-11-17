@@ -93,9 +93,10 @@ for (k=0; k<K; k++) {
   print(k, ". R=", R_centres[k], ", G=", G_centres[k],", B=", B_centres[k]);
 }
 
+while(true) {
 //ask to open a new image
 Dialog.create("Segmentation automatique");
-Dialog.addMessage("Veuillez choisir une nouvelle image a segmenter automatiquement.");
+Dialog.addMessage("Veuillez choisir une nouvelle image a segmenter automatiquement. (Pour terminer le traitement cliquez sur Annuler)");
 Dialog.show();
 
 run("Open...");
@@ -139,7 +140,7 @@ for (j=0; j<H; j++) {
 
   }
 }
-
+}
 //End of the macro
 Dialog.create("Fin");
 Dialog.addMessage("Traitement terminé.");

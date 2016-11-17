@@ -63,9 +63,24 @@
 %----------------------------------------------------------------------------------------
 
 \section{Introduction}
+
 Nous avons vu dans le précédent TP comment étaient représentées les couleurs en informatique. Dans ce TP, nous allons tenter de segmenter des images par classification de pixels.\\
 
-Nous devrons écrire une Macro ImageJ qui permet de segmenter une image en un nombre donné de classes. Nous segmenterons ensuite d'autres images en utilisant ces classes et observerons les résultats.
+Nous devrons écrire une Macro ImageJ qui permet de segmenter une image en un nombre donné de classes. Nous segmenterons ensuite d'autres images en utilisant ces classes et observerons les résultats, à la fois dans les espaces RGB et HSB.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=170px]{../base/cas_4_dalton6.png}
+\includegraphics[width=170px]{../resultats/cas_4_dalton6_seg.png}
+\end{center}
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=170px]{../resultats/cas_4_dalton6_hsb.png}
+\includegraphics[width=170px]{../resultats/cas_4_dalton6_hsb_seg.png}
+\end{center}
+\end{figure}
 
 \clearpage
 %----------------------------------------------------------------------------------------
@@ -86,31 +101,38 @@ Ensuite, nous segmentons la nouvelle image en sélectionnant pour chaque pixel l
 {\em La Macro a été fournie en pièce jointe.}
 
 \subsection{Résultats}
-Nous testons dans un premier temps la macro sur l'image {\em cas\_3\_dalton15}, en demandant 6 classes. Nous obtenons l'image segmentée ci-dessous (à droite) ainsi que les valeurs des différentes classes.
+
+\subsubsection{Segmentation par K-means}
+
+Nous testons dans un premier temps la macro sur l'image {\em cas\_3\_dalton15}, en demandant 3 classes. Nous obtenons l'image segmentée ci-dessous (à droite) ainsi que les valeurs des différentes classes.
 
 \begin{figure}[H]
 \begin{center}
 \includegraphics[width=170px]{../base/cas_3_dalton15.png}
-\includegraphics[width=170px]{../resultats/cas_3_dalton15.png}
+\includegraphics[width=170px]{../resultats/cas_3_dalton15_seg.png}
 \end{center}
 \caption{À gauche : Image initiale | À droite : Image segmentée}
 \end{figure}
 
+\clearpage
+\subsubsection{Classes obtenues}
+
+Après analyse de l'image, nous retrouvons les 3 classes de couleurs suivantes :
+
 \begin{enumerate}
-  \item R=255, G=255, B=255
-  \item R=252, G=231, B=207
-  \item R=247, G=177, B=124
-  \item R=234, G=206, B=148
-  \item R=233, G=130, B=092
-  \item R=174, G=174, B=114
+  \item R=254, G=251, B=246
+  \item R=241, G=191, B=135
+  \item R=225, G=138, B=97
 \end{enumerate}
+
+\subsubsection{Segmentation par distance euclidienne}
 
 Nous devons maintenant ouvrir une nouvelle image. Nous sélectionnons {\em cas\_3\_dalton74} pour la segmenter selon la méthode citée plus haut. Voici le résultat obtenu.
 
 \begin{figure}[H]
 \begin{center}
 \includegraphics[width=170px]{../base/cas_3_dalton74.png}
-\includegraphics[width=170px]{../resultats/cas_3_dalton74.png}
+\includegraphics[width=170px]{../resultats/cas_3_dalton74_seg.png}
 \end{center}
 \caption{À gauche : Image initiale | À droite : Image segmentée}
 \end{figure}
@@ -119,24 +141,24 @@ Nous devons maintenant ouvrir une nouvelle image. Nous sélectionnons {\em cas\_
 %----------------------------------------------------------------------------------------
 %	APPLICATION
 %----------------------------------------------------------------------------------------
-\section{Application aux images cas\_4}
+\section{Application aux images {\em cas\_4}}
 
 \subsection{Explication}
 
-Le but de cette partie est d'appliquer la macro codée dans la partie précédente et d'observer les résultats sur le lot d'images {\em cas\_4}.\\
+Le but de cette partie est d'appliquer la macro codée dans la partie précédente et d'observer les résultats sur le lot d'images {\em cas\_4}, à la fois dans l'espace RGB et HSB.\\
 
-La première image selectionnée et segmentée est l'image {\em cas\_4\_dalton6}. Nous utiliserons les 6 classes extraites de cette image afin de segmenter les images suivantes.
+La première image sélectionnée et segmentée est l'image {\em cas\_4\_dalton6}. Nous utiliserons les 3 classes extraites de cette image afin de segmenter les images suivantes.
 
 \subsection{Résultats}
 
-\subsubsection{Image cas\_4\_dalton6}
+\subsubsection{Image {\em cas\_4\_dalton6} dans l'espace RGB}
 
-Après classification et segmentation par la méthod K-Means, nous obtenons l'image ci-dessous (à droite).
+Après classification et segmentation par la méthode K-Means, nous obtenons l'image ci-dessous (à droite).
 
 \begin{figure}[H]
 \begin{center}
 \includegraphics[width=170px]{../base/cas_4_dalton6.png}
-\includegraphics[width=170px]{../resultats/cas_4_dalton6.png}
+\includegraphics[width=170px]{../resultats/cas_4_dalton6_seg.png}
 \end{center}
 \caption{À gauche : Image initiale | À droite : Image segmentée}
 \end{figure}
@@ -144,125 +166,154 @@ Après classification et segmentation par la méthod K-Means, nous obtenons l'im
 Les classes obtenues sont les suivantes :
 
 \begin{enumerate}
-  \item R=255, G=255, B=255
-  \item R=252, G=231, B=207
-  \item R=247, G=177, B=124
-  \item R=234, G=206, B=148
-  \item R=233, G=130, B=092
-  \item R=174, G=174, B=114
+  \item R=252, G=250, B=242
+  \item R=222, G=206, B=133
+  \item R=168, G=162, B= 93
 \end{enumerate}
 
-Nous observons l'image résultante dans les repères RGB et HSV, grâce au plugin Color Inspector 3D :
+Nous voyons que les points de couleurs sont pour la plupart bien segmentés, mais nous ne pouvons pas distinguer les chiffres présents initialement.\\
+Nous allons donc tester cet algorithme dans l'espace HSB afin de voir si la segmentation nous donne des résultats plus utiles.
+
+\clearpage
+\subsubsection{Image {\em cas\_4\_dalton6} dans l'espace HSB}
+
+Nous analysons les résultats de cette macro dans l'espace HSB.\\
+Ainsi, nous convertissons l'image choisie dans l'espace HSB, nous obtenons l'image ci-dessous à gauche, puis nous utilisons la même méthode que dans la partie précédente. Nous obtenons l'image ci-dessous à droite.
 
 \begin{figure}[H]
 \begin{center}
-  \includegraphics[width=170px]{../resultats/cas_4_dalton6_rgb.png}
-\includegraphics[width=170px]{../resultats/cas_4_dalton6_hsv.png}
+\includegraphics[width=170px]{../resultats/cas_4_dalton6_hsb.png}
+\includegraphics[width=170px]{../resultats/cas_4_dalton6_hsb_seg.png}
 \end{center}
-\caption{À gauche : Vue dans l'espace RGB | À droite : Vue dans l'espace HSV}
+\caption{À gauche : Image initiale (HSB) | À droite : Image segmentée}
 \end{figure}
 
-Nous ne voyons plus que 6 couleurs. Ces couleurs correspondent aux classes trouvées plus tôt. En effet, chaque pixel a pris la couleur de la classe la plus proche dans le repère RGB. D'où ces résultats.
+Les classes obtenues sont les suivantes :
+
+\begin{enumerate}
+  \item R=  3, G=  5, B=245
+  \item R= 46, G= 39, B=205
+  \item R= 36, G=125, B=188
+
+\end{enumerate}
+
+De même ici, nous ne pouvons pas distinguer les points formants le chiffre 6 des points formants le disque.
 
 \clearpage
-\subsubsection{Image cas\_4\_dalton8}
+\subsubsection{Image {\em cas\_4\_dalton8} dans l'espace RGB}
 
 Après segmentation, nous obtenons l'image suivante :
 
 \begin{figure}[H]
 \begin{center}
 \includegraphics[width=170px]{../base/cas_4_dalton8.png}
-\includegraphics[width=170px]{../resultats/cas_4_dalton8.png}
+\includegraphics[width=170px]{../resultats/cas_4_dalton8_seg.png}
 \end{center}
 \caption{À gauche : Image initiale | À droite : Image segmentée}
 \end{figure}
 
-Nous observons l'image résultante dans les repères RGB et HSV, grâce au plugin Color Inspector 3D :
+Nous ne pouvons pas distinguer les points formants le chiffre 8 des points formants le disque.
+
+\subsubsection{Image {\em cas\_4\_dalton8} dans l'espace HSB}
+
+Après conversion de l'image et segmentation, nous obtenons l'image suivante :
 
 \begin{figure}[H]
 \begin{center}
-  \includegraphics[width=170px]{../resultats/cas_4_dalton8_rgb.png}
-\includegraphics[width=170px]{../resultats/cas_4_dalton8_hsv.png}
+\includegraphics[width=170px]{../resultats/cas_4_dalton8_hsb.png}
+\includegraphics[width=170px]{../resultats/cas_4_dalton8_hsb_seg.png}
 \end{center}
-\caption{À gauche : Vue dans l'espace RGB | À droite : Vue dans l'espace HSV}
+\caption{À gauche : Image initiale (HSB) | À droite : Image segmentée}
 \end{figure}
 
-Ici également, nous voyons seulement 6 couleurs. Ces couleurs correspondent aux classes trouvées plus tôt.
+Nous ne pouvons pas distinguer les points formants le chiffre 8 des points formants le disque.
 
 \clearpage
-\subsubsection{Image cas\_4\_dalton29}
+\subsubsection{Image {\em cas\_4\_dalton29} dans l'espace RGB}
 
 Après segmentation, nous obtenons l'image suivante :
 
 \begin{figure}[H]
 \begin{center}
 \includegraphics[width=170px]{../base/cas_4_dalton29.png}
-\includegraphics[width=170px]{../resultats/cas_4_dalton29.png}
+\includegraphics[width=170px]{../resultats/cas_4_dalton29_seg.png}
 \end{center}
 \caption{À gauche : Image initiale | À droite : Image segmentée}
 \end{figure}
 
-Nous observons l'image résultante dans les repères RGB et HSV, grâce au plugin Color Inspector 3D :
+Nous ne pouvons pas distinguer les points formants le nombre 29 des points formants le disque.
+
+\subsubsection{Image {\em cas\_4\_dalton29} dans l'espace HSB}
+
+Après conversion de l'image et segmentation, nous obtenons l'image suivante :
 
 \begin{figure}[H]
 \begin{center}
-  \includegraphics[width=170px]{../resultats/cas_4_dalton29_rgb.png}
-\includegraphics[width=170px]{../resultats/cas_4_dalton29_hsv.png}
+\includegraphics[width=170px]{../resultats/cas_4_dalton29_hsb.png}
+\includegraphics[width=170px]{../resultats/cas_4_dalton29_hsb_seg.png}
 \end{center}
-\caption{À gauche : Vue dans l'espace RGB | À droite : Vue dans l'espace HSV}
+\caption{À gauche : Image initiale (HSB) | À droite : Image segmentée}
 \end{figure}
 
-Ici également, nous voyons seulement 6 couleurs. Ces couleurs correspondent aux classes trouvées plus tôt.
+Nous ne pouvons pas distinguer les points formants le nombre 29 des points formants le disque.
 
 \clearpage
-\subsubsection{Image cas\_4\_dalton45}
+\subsubsection{Image {\em cas\_4\_dalton45} dans l'espace RGB}
 
 Après segmentation, nous obtenons l'image suivante :
 
 \begin{figure}[H]
 \begin{center}
 \includegraphics[width=170px]{../base/cas_4_dalton45.png}
-\includegraphics[width=170px]{../resultats/cas_4_dalton45.png}
+\includegraphics[width=170px]{../resultats/cas_4_dalton45_seg.png}
 \end{center}
 \caption{À gauche : Image initiale | À droite : Image segmentée}
 \end{figure}
 
-Nous observons l'image résultante dans les repères RGB et HSV, grâce au plugin Color Inspector 3D :
+Nous ne pouvons pas distinguer les points formants le nombre 45 des points formants le disque.
+
+\subsubsection{Image {\em cas\_4\_dalton45} dans l'espace HSB}
+
+Après conversion de l'image et segmentation, nous obtenons l'image suivante :
 
 \begin{figure}[H]
 \begin{center}
-  \includegraphics[width=170px]{../resultats/cas_4_dalton45_rgb.png}
-\includegraphics[width=170px]{../resultats/cas_4_dalton45_hsv.png}
+\includegraphics[width=170px]{../resultats/cas_4_dalton45_hsb.png}
+\includegraphics[width=170px]{../resultats/cas_4_dalton45_hsb_seg.png}
 \end{center}
-\caption{À gauche : Vue dans l'espace RGB | À droite : Vue dans l'espace HSV}
+\caption{À gauche : Image initiale (HSB) | À droite : Image segmentée}
 \end{figure}
 
-Ici également, nous voyons seulement 6 couleurs. Ces couleurs correspondent aux classes trouvées plus tôt.
+Nous ne pouvons pas distinguer les points formants le nombre 45 des points formants le disque.
 
 \clearpage
-\subsubsection{Image cas\_4\_dalton\_ligne}
+\subsubsection{Image {\em cas\_4\_dalton\_ligne} dans l'espace RGB}
 
 Après segmentation, nous obtenons l'image suivante :
 
 \begin{figure}[H]
 \begin{center}
 \includegraphics[width=170px]{../base/cas_4_dalton_ligne.png}
-\includegraphics[width=170px]{../resultats/cas_4_dalton_ligne.png}
+\includegraphics[width=170px]{../resultats/cas_4_dalton_ligne_seg.png}
 \end{center}
 \caption{À gauche : Image initiale | À droite : Image segmentée}
 \end{figure}
 
-Nous observons l'image résultante dans les repères RGB et HSV, grâce au plugin Color Inspector 3D :
+Nous ne pouvons pas distinguer les points formants la ligne des points formants le disque.
+
+\subsubsection{Image {\em cas\_4\_dalton\_ligne} dans l'espace HSB}
+
+Après conversion de l'image et segmentation, nous obtenons l'image suivante :
 
 \begin{figure}[H]
 \begin{center}
-  \includegraphics[width=170px]{../resultats/cas_4_dalton_ligne_rgb.png}
-\includegraphics[width=170px]{../resultats/cas_4_dalton_ligne_hsv.png}
+\includegraphics[width=170px]{../resultats/cas_4_dalton_ligne_hsb.png}
+\includegraphics[width=170px]{../resultats/cas_4_dalton_ligne_hsb_seg.png}
 \end{center}
-\caption{À gauche : Vue dans l'espace RGB | À droite : Vue dans l'espace HSV}
+\caption{À gauche : Image initiale (HSB) | À droite : Image segmentée}
 \end{figure}
 
-Ici également, nous voyons seulement 6 couleurs. Ces couleurs correspondent aux classes trouvées plus tôt.
+Nous ne pouvons pas distinguer les points formants la ligne des points formants le disque.
 
 \clearpage
 %----------------------------------------------------------------------------------------
@@ -270,11 +321,13 @@ Ici également, nous voyons seulement 6 couleurs. Ces couleurs correspondent aux
 %----------------------------------------------------------------------------------------
 
 \section{Conclusion}
-Après avoir défini ce qu'étaient les couleurs et leurs représentations, nous avons pu segmenter des images en utilisant l'algorithme K-Means Clustering.\\
+Après avoir défini ce qu'étaient les couleurs et leurs représentations, nous avons pu segmenter des images en un nombre donné de classes en utilisant l'algorithme K-Means Clustering.\\
 
 Cet algorithme nous a permis -- une fois spécifié le nombre de classes voulues -- d'obtenir les couleurs de chaque classes. Une fois ces couleurs stockées, nous avons pu segmenter des images similaires en récupérant pour chaque pixel, la classe la plus proche de sa couleur.\\
 
-Nous avons observé que dans les espaces RGB et HSV, il n'y avait plus que les couleurs associées aux classes utilisées pour la segmentation.
+Nous observons ici que les points formant les disques sont bien segmentés. Cependant, nous ne pouvons plus distinguer les nombres à l'intérieur de ces disques. Et ce aussi bien dans l'espace RGB que dans l'espace HSB.\\
+
+Par conséquent, bien que cette méthode de segmentation soit efficace pour dissocier le fond et le disque, elle ne nous permet pas de segmenter l'image dans sa totalité.
 
 \clearpage
 %----------------------------------------------------------------------------------------
