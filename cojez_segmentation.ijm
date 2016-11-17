@@ -96,7 +96,7 @@ for (k=0; k<K; k++) {
 while(true) {
 //ask to open a new image
 Dialog.create("Segmentation automatique");
-Dialog.addMessage("Veuillez choisir une nouvelle image a segmenter automatiquement. (Pour terminer le traitement cliquez sur Annuler)");
+Dialog.addMessage("Veuillez choisir une nouvelle image a segmenter automatiquement.\nPour terminer le traitement cliquez sur Annuler.\n(Apres segmentation il se peut que l'image ne se mette pas a jour, il faut alors cliquer directement dans l'image)");
 Dialog.show();
 
 run("Open...");
